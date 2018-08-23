@@ -73,3 +73,5 @@ XVFB: 2:1.18.4
 Jenkins slave.jar (aka remoting.jar) at /usr/share/jenkins/slave.jar: 3.23
 
 librdkafka v0.11.4
+
+go 1.8
