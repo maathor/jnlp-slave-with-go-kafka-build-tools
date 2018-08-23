@@ -17,7 +17,7 @@ ENV GOPATH $HOME/workspace/gopath
 ENV GOROOT /usr/local/go
 ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
 RUN mkdir -p $GOPATH
-RUN chmod 755 $GOPATH
+RUN chmod 777 $GOPATH
 
 RUN apt-get update && apt-get install -y make gcc git rsync librdkafka-dev && \
     apt-get clean && \
