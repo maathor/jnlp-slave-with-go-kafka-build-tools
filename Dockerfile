@@ -19,7 +19,7 @@ ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
 RUN mkdir -p $GOPATH
 RUN chmod 777 $GOPATH
 
-RUN apt-get update && apt-get install -y make gcc git rsync librdkafka-dev && \
+RUN apt-get update && apt-get install -y make gcc git rsync librdkafka-dev pkg-config lxc-dev && \
     apt-get clean && \
     rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
