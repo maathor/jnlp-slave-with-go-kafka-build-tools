@@ -19,16 +19,15 @@ ENV PATH $GOPATH/bin:$GOROOT/bin:$PATH
 RUN mkdir -p $GOPATH
 RUN chmod 777 $GOPATH
 
-RUN apt-get update && apt-get install -y make gcc git rsync pkg-config lxc-dev wget && \
+RUN apt-get update && apt-get install -y make gcc git rsync pkg-config lxc-dev wget build-essential && \
     apt-get clean && \
     rm -fr /tmp/* /var/tmp/*
 
-RUN wget -qO - https://packages.confluent.io/deb/5.0/archive.key | apt-key add -
-
-RUN add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/5.0 stable main"
-
-RUN apt-get update && apt-get install -y librdkafka-dev && \
-	rm -fr /var/lib/apt/lists/*
-
+WORKDIR /tmp/
+RUN git clone https://github.com/edenhill/librdkafka.git
+WORKDIR /tmp/librdkafka
+RUN git checkout v0.11.5 && git checkout -b v0.11.5
+RUN ./configure --disable-lz4 --disable-ssl --disable-sasl && make && make install
+RUN cd /tmp && rm -rf librdkafka
 WORKDIR /home/jenkins
 USER jenkins
